@@ -1,0 +1,28 @@
+<script type="text/javascript">
+    RED.nodes.registerType('BLE Beacon Scanner',{
+        category: 'function',
+        color: '#61D0D4',
+        defaults: {
+            name: {value:""}
+        },
+        inputs:0,
+        outputs:1,
+        icon: "bridge-dash.png",
+        label: function() {
+            return this.name||"BLE Beacon Scanner";
+        }
+    });
+</script>
+
+<script type="text/x-red" data-template-name="BLE Beacon Scanner">
+    <div class="form-row">
+        <label for="node-input-name"><i class="icon-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="BLE Beacon Scanner">
+    <p>Recieve Advertise Messages from BLE Beacons</p>
+</script>
+
+
