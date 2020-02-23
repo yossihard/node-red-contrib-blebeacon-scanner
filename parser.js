@@ -57,17 +57,6 @@ BeaconParser.prototype.parse = function (peripheral) {
 		parsed = mEstimote.parseTelemetry(peripheral);
 	} else if (beacon_type === 'estimoteNearable') {
 		parsed = mEstimote.parseNearable(peripheral);
-	} else if (beacon_type === 'ondotori') {
-		parsed = {
-			companyID : manu.readUInt16LE(0),
-			serialNo : manu.slice(2, 6).toString('hex'),
-			ctrlCd : manu.slice(6, 7).readUInt8(0),
-			count : manu.slice(7, 8).toString('hex'),
-			statusCd1 : manu.slice(8, 9).readUInt8(0),
-			statusCd2 : manu.slice(9, 10).readUInt8(0),
-			MeasData1 : (manu.slice(10, 12).readUInt16LE(0) - 1000) / 10,
-			MeasData2 : (manu.slice(12, 14).readUInt16LE(0) - 1000) / 10
-		};
 	} else if (beacon_type === 'other') {
 		parsed = manu;
 	}
@@ -118,10 +107,6 @@ BeaconParser.prototype._detectBeaconType = function (peripheral) {
 	// Estimote Nearable
 	if (manu && manu.length >= 2 && manu.readUInt16LE(0) === this._ESTIMOTE_COMPANY_ID) {
 		return 'estimoteNearable';
-	}
-
-	if (manu && manu.length >= 20 && manu.readUInt16LE(0) === 0x0392) {
-		return 'ondotori';
 	}
 
 	if (manu) {
